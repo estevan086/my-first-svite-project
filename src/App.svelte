@@ -1,21 +1,27 @@
 <script>
-  const world = 'Esteban'; // edit world and save to see hmr update
+  const world = "Esteban"; // edit world and save to see hmr update
   const appId = "39435c45-7a13-4cd6-b19f-7b57ff3d7ee8";
-  const masaMorteroArgos = 40;
+  const MorteroArgos = 40;
 
-  
-  const handleSubmit = () => {
-    
-  };
+  const handleSubmit = () => {};
 
-  let a, b, c;  
+  var formatter = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP"
+  });
+
+  let a, b, c;
   let referenciaSelected;
-  let numeroDeSacos;
-  let agua;
+  let numeroDeSacos = 0;
+  let agua = 0;
+  let masaMorteroArgos = 0;
   let masaMorteroMasAgua = 0;
+  let consistencia = 0;
+  let masa = 0;
+  let volumen = 0;
 
-  $: masaMorteroMasAgua = masaMorteroArgos + 40;
-
+  $: masaMorteroArgos = numeroDeSacos * MorteroArgos;
+  $: masaMorteroMasAgua = masaMorteroArgos + agua;
 </script>
 
 <style>
@@ -30,7 +36,8 @@
     margin: 40px auto;
     text-align: center;
   }
-  input, textarea, select {
+  input,
+  select {
     display: block;
     width: 100%;
     padding: 10px;
@@ -39,72 +46,91 @@
     border: 1px solid #eee;
     border-radius: 8px;
   }
+
+  .u-full-width {
+    color: blueviolet;
+  }
+
+  .outputs {
+    font-size: 20px;
+    border: solid black 2px;
+    margin-top: 15px;
+    text-align: center;
+  }
 </style>
 
 <main class="container">
   <div class="row">
     <h1>Calculadora Cemento</h1>
   </div>
+
+<div class="row">
+    <h3>Referencias</h3>
+     <select bind:value={referenciaSelected}>
+        <option value={a}>Mezcla Lista Pañete</option>
+        <option value={b}>Mezcla Lista Cemento</option>
+        <option value={c}>Mezcla Lista Pañete 3</option>
+     </select>
+  </div>
+
+
   <div class="row">
-    <label>Loan Amount</label>
+    <h3>Numero de Sacos</h3>
     <input
       min="1"
-      bind:value={loanAmount}
-      placeholder="Enter loan amount"
+      bind:value={numeroDeSacos}
+      placeholder="Ingrese el numero de sacos"
       type="number"
       class="u-full-width" />
   </div>
   <div class="row">
     <div class="columns six">
-      <label>Years</label>
+      <h3>Agua: {agua}</h3>
       <input
         type="range"
         min="1"
-        max="50"
+        max="10"
         class="u-full-width"
-        bind:value={years} />
+        bind:value={agua} />
     </div>
-    <div class="columns six outputs">{years} years</div>
+    <div class="columns six outputs">Masa Mortero Argos: {masaMorteroArgos}</div>
   </div>
+ 
+<div class="row">
+    <div class="columns six">
+      <h3>Consistencia (mm)</h3>
+      <input
+        type="number"
+        min="1"
+        max="100"
+        class="u-full-width"
+        bind:value={consistencia} />
+    </div>
+  </div>
+ 
+  <div class="row outputs">
+    Masa Mortero + Agua: {masaMorteroMasAgua}
+  </div>
+
+
   <div class="row">
     <div class="columns six">
-      <label>Interest Rate</label>
+      <h3>Masa</h3>
       <input
-        type="range"
-        min="1"
-        max="2000"
+        type="number"
         class="u-full-width"
-        bind:value={interestRateInput} />
+        bind:value={masa} />
     </div>
-    <div class="columns six outputs">{interestRate.toFixed(2)}%</div>
   </div>
 
-  <div class="row outputs">
-    Monthly Payments {formatter.format(monthlyPayment)}
+  <div class="row">
+    <div class="columns six">
+      <h3>Volumen</h3>
+      <input
+        type="number"
+        class="u-full-width"
+        bind:value={volumen} />
+    </div>
   </div>
-  <div class="row outputs">Total Paid {formatter.format(totalPaid)}</div>
-  <div class="row outputs">Interest Paid {formatter.format(interestPaid)}</div>
 
 </main>
-
-<h1>Hello {world}</h1>
-<h2>Calculadora Materiales</h2>
-
-<form on:submit|preventDefault={handleSubmit}>
-  <select bind:value={referenciaSelected}>
-    <option value={a}>Mezcla Lista Pañete</option>
-    <option value={b}>Mezcla Lista Cemento</option>
-    <option value={c}>Mezcla Lista Pañete 3</option>
-  </select>
-
-
-  <input placeholder="Numero de Sacos" bind:value={numeroDeSacos} required>
-  <p>Masa Mortero Argos: {masaMorteroArgos}</p>
-
-  <input placeholder="Agua" value={agua} type="number" >
-  <p>Masa Mortero Argos+Agua: {masaMorteroMasAgua}</p>
-
-  <input bind:value={masaMorteroMasAgua}>
-
-
-</form>
