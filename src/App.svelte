@@ -19,9 +19,17 @@
   let consistencia = 0;
   let masa = 0;
   let volumen = 0;
+  let densidadMorteroArgos = 0;
+  let volumenMorteroArgos = 0;
 
   $: masaMorteroArgos = numeroDeSacos * MorteroArgos;
   $: masaMorteroMasAgua = masaMorteroArgos + agua;
+  $: densidadMorteroArgos =
+    Math.round((masa / volumen + Number.EPSILON) * 100) / 100;
+  $: volumenMorteroArgos =
+    Math.round(
+      (masaMorteroMasAgua / densidadMorteroArgos + Number.EPSILON) * 100
+    ) / 100;
 </script>
 
 <style>
@@ -132,5 +140,15 @@
         bind:value={volumen} />
     </div>
   </div>
+
+
+   <div class="row outputs">
+    Densidad Mortero Argos (kg/l) {densidadMorteroArgos}
+  </div>
+
+ <div class="row outputs">
+    Volumen Mortero Argos (L) {volumenMorteroArgos}
+  </div>
+  
 
 </main>
