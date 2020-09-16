@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "svelte": "3.25.1",
-    "svelte-hmr": "0.10.3"
+    "svelte-hmr": "0.10.3",
+    "node-forge": ">=0.10.0"
   },
   "devDependencies": {
     "svite": "^0.6.1"
